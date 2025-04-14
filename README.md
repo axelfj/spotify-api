@@ -1,6 +1,6 @@
 # 🎧 Spotify Track Metadata API
 
-A lightweight Spring Boot demo that connects to the Spotify API, fetches track metadata using ISRC codes, and stores them temporarily using an in-memory H2 database.
+A lightweight Spring Boot demo that connects to the Spotify API, fetches track metadata using ISRC codes, and stores them temporarily using an in-memory H2 database. You'll need to have Java 21 with the proper JDK, and it's recommended to run it on IntelliJ.
 
 ## 🚀 Features
 
