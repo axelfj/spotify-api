@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface TrackMetadataRepository extends JpaRepository<TrackMetadata, Long> {
-    // Método para encontrar TrackMetadata por ISRC
     Optional<TrackMetadata> findByIsrc(String isrc);
 }
