@@ -1,4 +1,4 @@
-package com.example.spotify_api.Services;
+package com.example.spotify_api.Service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

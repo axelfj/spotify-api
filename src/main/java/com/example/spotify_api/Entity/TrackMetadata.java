@@ -1,4 +1,4 @@
-package com.example.spotify_api.Entities;
+package com.example.spotify_api.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

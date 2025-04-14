@@ -1,7 +1,7 @@
-package com.example.spotify_api.Services;
+package com.example.spotify_api.Service;
 
-import com.example.spotify_api.Entities.TrackMetadata;
-import com.example.spotify_api.Repositories.TrackMetadataRepository;
+import com.example.spotify_api.Entity.TrackMetadata;
+import com.example.spotify_api.Repository.TrackMetadataRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
