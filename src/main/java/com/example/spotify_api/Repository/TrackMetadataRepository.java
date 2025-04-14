@@ -1,6 +1,6 @@
-package com.example.spotify_api.Repositories;
+package com.example.spotify_api.Repository;
 
-import com.example.spotify_api.Entities.TrackMetadata;
+import com.example.spotify_api.Entity.TrackMetadata;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

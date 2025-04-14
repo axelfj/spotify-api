@@ -1,7 +1,7 @@
-package com.example.spotify_api.Controllers;
+package com.example.spotify_api.Controller;
 
-import com.example.spotify_api.Entities.TrackMetadata;
-import com.example.spotify_api.Services.TrackService;
+import com.example.spotify_api.Entity.TrackMetadata;
+import com.example.spotify_api.Service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
