@@ -1,1 +1,6 @@
-spotify-api/src/main/resources/application.properties
+
+# Build output
+target/
+out/
+tests/out/
+*.class
