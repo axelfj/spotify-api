@@ -2,8 +2,8 @@ package com.example.spotify_api.Service;
 
 import com.example.spotify_api.Entity.TrackMetadata;
 import com.example.spotify_api.Repository.TrackMetadataRepository;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

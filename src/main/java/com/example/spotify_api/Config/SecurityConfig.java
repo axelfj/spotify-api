@@ -1,8 +1,8 @@
 package com.example.spotify_api.Config;
 
 import org.springframework.beans.factory.annotation.Value;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
 import java.util.Map;
 import java.util.ArrayList;
 import org.springframework.security.config.http.SessionCreationPolicy;
