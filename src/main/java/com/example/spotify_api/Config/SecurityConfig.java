@@ -1,5 +1,11 @@
 package com.example.spotify_api.Config;
 
+import org.springframework.beans.factory.annotation.Value;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
+import java.util.Map;
+import java.util.ArrayList;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -31,6 +37,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
                 .cors(Customizer.withDefaults());
 
@@ -38,13 +45,19 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("admin")
-                .password("{noop}password")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user);
+    public UserDetailsService userDetailsService(@Value("${SPOTIFY_API_USERS_JSON}") String configuredUsers) throws Exception {
+        Map<String, String> accounts = new ObjectMapper().readValue(configuredUsers, new TypeReference<Map<String,String>>() {});
+        if (accounts.isEmpty()) throw new IllegalStateException("At least one API user is required");
+        ArrayList<UserDetails> users = new ArrayList<>();
+        for (Map.Entry<String, String> account : accounts.entrySet()) {
+            if (account.getKey().isBlank() || account.getKey().contains(":")) throw new IllegalStateException("Invalid API username");
+            String hash = account.getValue();
+            if (hash == null || !hash.matches("\\{bcrypt\\}\\$2[aby]\\$\\d{2}\\$[./A-Za-z0-9]{53}")) {
+                throw new IllegalStateException("API users must have bcrypt hashes with the {bcrypt} prefix");
+            }
+            users.add(User.withUsername(account.getKey()).password(hash).roles("USER").build());
+        }
+        return new InMemoryUserDetailsManager(users);
     }
 
     @Configuration
