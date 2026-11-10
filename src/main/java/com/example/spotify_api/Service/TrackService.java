@@ -10,6 +10,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class TrackService {
@@ -26,7 +28,7 @@ public class TrackService {
 
     public Mono<TrackMetadata> createTrackMetadata(String isrc) {
         if (repository.findByIsrc(isrc).isPresent()) {
-            return Mono.error(new IllegalArgumentException("Track with ISRC already exists"));
+            return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, "Track with ISRC already exists"));
         }
 
         return getTrackFromSpotify(isrc)
@@ -44,7 +46,7 @@ public class TrackService {
     public Mono<TrackMetadata> getTrackMetadata(String isrc) {
         return repository.findByIsrc(isrc)
                 .map(Mono::just)
-                .orElseGet(() -> Mono.error(new IllegalArgumentException("Track with ISRC " + isrc + " not found.")));
+                .orElseGet(() -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Track with ISRC " + isrc + " not found.")));
     }
 
     public Mono<byte[]> getCoverImage(String isrc) {
@@ -55,10 +57,10 @@ public class TrackService {
             if (image != null && image.length > 0) {
                 return Mono.just(image);
             } else {
-                return Mono.error(new IllegalArgumentException("Cover image not found for ISRC " + isrc));
+                return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Cover image not found for ISRC " + isrc));
             }
         } else {
-            return Mono.error(new IllegalArgumentException("Track with ISRC " + isrc + " not found."));
+            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Track with ISRC " + isrc + " not found."));
         }
     }
 
